@@ -1,0 +1,298 @@
+﻿
+@{
+    ViewBag.Title = "Marca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Tabla de Marcas</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="index.html">Mantenimiento</a></li>
+        <li class="breadcrumb-item active">Marcas</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <svg class="svg-inline--fa fa-table fa-w-16 me-1" aria-hidden="true" focusable="false" data-prefix="fas"
+                 data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                      d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z">
+                </path>
+            </svg>
+            Lista De Marcas
+        </div>
+
+        <!-- Button trigger modal -->
+        <br />
+        <div class="row" style="margin-left:10px">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                   Nueva Marca
+                </button>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="FormsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:black">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: white; text-align: center; margin: 0 auto; margin-right:10px"> Marca </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body ">
+                        <input id="txtid" type="hidden" value="0" />
+
+                        @*row g-1 indica que vas agrupar las colunnas de 1 en 1*@
+                        <div class="row g-1">
+
+                            <div class="col-sm-6">
+                                <label for="txtDescripcion" class="form-label">Nombre Marca</label>
+                                <input type="text" class="form-control" id="txtDescripcion" autocomplete="off" placeholder="Nombre Marca">
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="cboactivo" class="form-label">Activo</label>
+                                <select id="cboactivo" class="form-select">
+                                    <option value="1">SI</option>
+                                    <option value="0">NO</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-12 text-center">
+                                <div id="mensajeError" class="alert alert-danger" role="alert">
+                                    A simple danger alert - check it out!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg> Cerrar
+                        </button>
+
+                        <button type="button" class="btn btn-primary" onclick="Guardar()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                                <path d="M11 2H9v3h2z" />
+                                <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                            </svg> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-container">
+                    <table id="tabla" class="display call-border" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Nombres Marcas</th>
+                                <th>Activo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                @section scripts{
+                    <script>
+                        //Creacion de tabla Marca
+                        var tabladata;
+
+                        tabladata = $("#tabla").DataTable({
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                            },
+                            responsive: true,
+                            ordering: false,
+                            "ajax": {
+                                url: '@Url.Action("ListarMarca", "Mantenedor")',
+                                type: "GET",
+                                dataType: "json",
+                                error: function (xhr, textStatus, errorThrown) {
+                                    console.log('Error en la solicitud Ajax:', textStatus, errorThrown);
+                                }
+                        },
+                            "columns": [
+                                { "data": "idMarca" },
+
+                                { "data": "Descripcion" },
+                                {
+                                    "data": "Activo", "render": function (valor) {
+                                        if (valor) {
+                                            return '<span class="badge bg-success">Si</span>'
+                                        } else {
+                                            return '<span class="badge bg-warning">No</span>'
+                                        }
+                                    }
+                                },
+                                {
+                                    "defaultContent": '<div class="btn-group">' +
+                                        '<button type="button" class="btn btn-sm btn-primary btn-editar"><i class="fas fa-pen"></i>      </button>&nbsp;' +
+                                        '<button type="button" class="btn btn-sm btn-danger btn-eliminar"><i class="fas fa-trash"></i>   </button>' +
+                                        '</div>',
+                                    "orderable": false,
+                                    "searchable": false,
+                                    "width": "90px"
+                                }
+                            ]
+                        });
+
+                        function abrirModal(json) {
+                            $("#txtid").val("");
+                            $("#txtDescripcion").val("");
+                            $("#cboactivo").val("1");
+                            $("#mensajeError").hide();
+                            if (json != null) {
+                                $("#txtid").val(json.idMarca);
+                                $("#txtDescripcion").val(json.Descripcion); // Antes decía json.txtDescripcion
+                                $("#cboactivo").val(json.Activo == true ? 1 : 0);
+                            }
+                            $("#FormsModal").modal("show")
+                        }
+                        var filaSeleccionada;  // Declarar la variable fuera de la función
+                        //Funcion que abre el modal cuando le das click al boton editar de la tabla
+                        $("#tabla tbody").on("click", '.btn-editar', function () {
+                            filaSeleccionada = $(this).closest("tr");
+                            //console.log(tabladata.row(filaSeleccionada).data());
+                            var data = tabladata.row(filaSeleccionada).data();
+                            abrirModal(data)
+                        })
+
+                        function Guardar() {
+                            //cramos objeto de Marca
+                            var Marca = {
+                                idMarca: $("#txtid").val(),
+                                Descripcion: $("#txtDescripcion").val(),
+                                Activo: $("#cboactivo").val() == 1 ? true : false
+                            }
+
+                            //Creamos La solicitud Ajax para acceder a nuestro controlador y posterior ingresar a La base de datos
+                            // Realiza la solicitud AJAX al controlador
+                            jQuery.ajax({
+                                url: '@Url.Action("GuardarMarca", "Mantenedor")',
+                                type: 'POST',
+                                data: JSON.stringify({ objeto: Marca }),
+                                dataType: 'json',
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
+
+                                    //Marca nueva
+                                    if (Marca.idMarca == 0) {
+                                        if(data.resultado != 0)
+                                        {
+                                            Marca.idMarca = data.resultado;
+                                            tabladata.row.add(Marca).draw(false);
+                                            $("#FormsModal").modal("hide");
+                                            Swal.fire("Marca Creada", "La Marca " + Marca.Descripcion + " " + " se creó correctamente.");
+                                            } else {
+                                                    $("#mensajeError").text(data.mensaje);
+                                                    $("#mensajeError").show();
+                                            }
+                                    }
+                                        //editar Marca
+                                    else {
+                                            if (data.resultado) {
+                                                tabladata.row(filaSeleccionada).data(Marca).draw(false);
+                                                filaSeleccionada = null;
+                                                $("#FormsModal").modal("hide");
+                                                Swal.fire("Marca Modificado", "Se modificó la Marca A: " + Marca.Descripcion + " " + ", correctamente.", "success");
+                                            } else {
+                                                $("#mensajeError").text(data.mensaje);
+                                                $("#mensajeError").show();
+
+                                        }
+                                    }
+                                    // Maneja la respuesta del controlador
+                                    console.log(data);
+                                },
+                                error: function (error) {
+                                    console.error('Error Ajax: ' + error.statusText);
+                                    $("#mensajeError").text("Error Ajax: " + error.statusText);
+                                    $("#mensajeError").show();
+                                },
+
+                                //Aqui hace un loading mientra se ejecuta el procedimiento que llamamos
+                                beforeSend: function () {
+                                    $(".modal-body").LoadingOverlay("show", {
+                                        imageResizeFactor: 2,
+                                        text: "Cargando...",
+                                        size: 14
+                                    });
+
+                                },
+                                // Aquí se oculta el overlay después de completar la solicitud (ya sea éxito o error)
+                                complete: function () {
+                                    $(".modal-body").LoadingOverlay("hide");
+                                }
+                            });
+                        }
+
+                        // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+                        //Funcion que abre el modal cuando le das click al boton eliminar de la tabla
+                                $("#tabla tbody").on("click", '.btn-eliminar', function () {
+                                    var MarcaSeleccionado = $(this).closest("tr");
+                                    var MarcaData = tabladata.row(MarcaSeleccionado).data();
+                                    console.log(MarcaData);
+
+                                    // Abrir SweetAlert para confirmar la eliminación
+                                    Swal.fire({
+                                        title: "¿Está seguro?",
+                                        text: "¿Desea eliminar La Marca?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonText: "Sí",
+                                        cancelButtonText: "No",
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false
+                                    }).then((result) => {
+                                        // Código que se ejecutará después de hacer clic en "Sí"
+                                        if (result.isConfirmed) {
+                                            // Realizar la solicitud AJAX para eliminar la Categoría
+                                            jQuery.ajax({
+                                                url: '@Url.Action("EliminarMarca", "Mantenedor")',
+                                                type: 'POST',
+                                                data: JSON.stringify({ id: MarcaData.idMarca }),  // Cambiado a categoriaData.idCategoria
+                                                dataType: 'json',
+                                                contentType: "application/json; charset=utf-8",
+                                                success: function (data) {
+                                                    if (data.resultado) {
+                                                        // Eliminar la fila de la tabla si se eliminó correctamente
+                                                        tabladata.row(MarcaSeleccionado).remove().draw();
+                                                        // Mostrar un mensaje adicional si se eliminó correctamente con el ID
+                                                        Swal.fire("Marca Eliminado", "La Marca con ID " + MarcaData.idMarca + " se eliminó exitosamente.", "success");
+                                                    } else {
+                                                        // Mostrar un mensaje de error si no se pudo eliminar
+                                                        Swal.fire("No se pudo Eliminar", data.mensaje, "error");
+                                                    }
+                                                },
+                                                error: function (error) {
+                                                    console.log(error);
+                                                }
+                                            });
+                                        }
+                                    });
+                                });
+
+                    </script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
