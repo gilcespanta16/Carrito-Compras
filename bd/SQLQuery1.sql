@@ -1,4 +1,39 @@
-select * from dbo.CATEGORIA;
+select * from CATEGORIA;
+select * from DETALLEVENTA
+select * from PRODUCTO;
+select * from VENTA;
+select * from CLIENTE;
+select * from USUARIO
+
+
+
+-- Borrar todas las filas de la tabla PRODUCTO
+DELETE FROM PRODUCTO;
+DELETE FROM MARCA;
+DELETE FROM CATEGORIA;
+DELETE FROM DETALLEVENTA;
+DELETE FROM VENTA;
+DELETE FROM CLIENTE;
+DELETE FROM USUARIO;
+
+
+TRUNCATE TABLE PRODUCTO;
+TRUNCATE TABLE MARCA;
+TRUNCATE TABLE CATEGORIA;
+
+
+-- Reiniciar el identificador de 'PRODUCTO' a 1
+DBCC CHECKIDENT ('PRODUCTO', RESEED, 0);
+-- Reiniciar el identificador de 'MARCA' a 1
+DBCC CHECKIDENT ('MARCA', RESEED, 0);
+-- Reiniciar el identificador de 'CATEGORIA' a 1
+DBCC CHECKIDENT ('CATEGORIA', RESEED, 0);
+DBCC CHECKIDENT ('DETALLEVENTA', RESEED, 0);
+DBCC CHECKIDENT ('VENTA', RESEED, 0);
+DBCC CHECKIDENT ('CLIENTE', RESEED, 0);
+
+
+
 
 ---------------------------------------
 ---Creacion de sp registrar Categoria---
@@ -320,27 +355,6 @@ select * from CATEGORIA;
 
 
 
--- Borrar todas las filas de la tabla PRODUCTO
-DELETE FROM PRODUCTO;
-DELETE FROM MARCA;
-DELETE FROM CATEGORIA;
-
-TRUNCATE TABLE PRODUCTO;
-TRUNCATE TABLE MARCA;
-TRUNCATE TABLE CATEGORIA;
-
-
--- Reiniciar el identificador de 'PRODUCTO' a 1
-DBCC CHECKIDENT ('PRODUCTO', RESEED, 0);
-
--- Reiniciar el identificador de 'MARCA' a 1
-DBCC CHECKIDENT ('MARCA', RESEED, 0);
-
--- Reiniciar el identificador de 'CATEGORIA' a 1
-DBCC CHECKIDENT ('CATEGORIA', RESEED, 0);
-
-
-
 select p.idProducto, p.Nombre, p.Descripcion,
 		m.idMarca, m.Descripcion[DesMarca],
 		c.idCategoria, c.descripcion[DesCategoria],
@@ -444,23 +458,43 @@ VALUES
 			   -- Inserciones para la tabla CLIENTE
 INSERT INTO CLIENTE (Nombre, Apeliido, Correo, Clave) VALUES
 ('Cliente1', 'Apellido1', 'cliente1@example.com', 'clave1'),
-('Cliente2', 'Apellido2', 'cliente2@example.com', 'clave2')
+('Cliente2', 'Apellido2', 'cliente2@example.com', 'clave2'),
+('Cliente3', 'Apellido3', 'cliente3@example.com', 'clave3'),
+('Cliente4', 'Apellido4', 'cliente4@example.com', 'clave4'),
+('Cliente5', 'Apellido5', 'cliente5@example.com', 'clave5')
+
 -- ... Agrega 8 filas más según tus necesidades;
 
 -- Inserciones para la tabla PRODUCTO
 INSERT INTO PRODUCTO (Nombre, descripcion, idMarca, idCategoria, Precio, Stock, RutaImagen, NombreImagen, Activo) VALUES
 ('Producto1', 'Descripción1', 1, 1, 10.99, 100, '/imagenes/producto1.jpg', 'producto1.jpg', 1),
-('Producto2', 'Descripción2', 2, 1, 15.99, 50, '/imagenes/producto2.jpg', 'producto2.jpg', 1)
+('Producto2', 'Descripción2', 2, 2, 15.99, 50, '/imagenes/producto2.jpg', 'producto2.jpg', 1),
+('Producto2', 'Descripción2', 3, 3, 15.99, 50, '/imagenes/producto2.jpg', 'producto2.jpg', 1),
+('Producto2', 'Descripción2', 4, 4, 15.99, 50, '/imagenes/producto2.jpg', 'producto2.jpg', 1),
+('Producto2', 'Descripción2', 5, 5, 15.99, 50, '/imagenes/producto2.jpg', 'producto2.jpg', 1)
+
+
 -- ... Agrega 8 filas más según tus necesidades;
 
 -- Inserciones para la tabla VENTA
 INSERT INTO VENTA (idCliente, TotalProducto, MontoTotal, Contacto, idDistrito, Telefono, Direccion, idTransaccion) VALUES
-(1, 5, 50.75, 'Contacto1', 'Distrito1', '123456789', 'Dirección1', 'Transaccion1'),
-(2, 3, 30.50, 'Contacto2', 'Distrito2', '987654321', 'Dirección2', 'Transaccion2')
+(1, 5, 50.75, 'Contacto1', 'Distrito1', '123456789', 'Dirección1', '1'),
+(2, 3, 30.50, 'Contacto2', 'Distrito2', '987654321', 'Dirección2', '2'),
+(3, 5, 30.50, 'Contacto3', 'Distrito3', '987654321', 'Dirección2', '3'),
+(4, 6, 30.50, 'Contacto4', 'Distrito4', '987654321', 'Dirección2', '4'),
+(5, 7, 30.50, 'Contacto5', 'Distrito5', '987654321', 'Dirección2', '5')
+
+
+
 -- ... Agrega 8 filas más según tus necesidades;
 
 -- Inserciones para la tabla DETALLEVENTA
 INSERT INTO DETALLEVENTA (idVenta, idProducto, Cantidad, Total) VALUES
 (1, 1, 2, 20.99),
-(1, 2, 3, 29.76)
+(2, 2, 2, 29.76),
+(3, 3, 3, 29.76),
+(4, 4, 4, 29.76),
+(5, 5, 5, 29.76),
+(6, 6, 6, 29.76)
+
 -- ... Agrega 8 filas más según tus necesidades;

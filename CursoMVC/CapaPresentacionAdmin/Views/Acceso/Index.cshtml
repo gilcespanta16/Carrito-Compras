@@ -1,0 +1,151 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+
+    <style>
+        /* Otros estilos pueden ir aquí */
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa; /* Fondo de color claro */
+            padding: 15px; /* Espaciado interno */
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+</head>
+<body style="background:black">
+
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container"  >
+                    <div class="row justify-content-center" >
+                        <div class="col-lg-5" style="box-shadow: 0 0 20px rgb(0, 38, 255); margin-top:20px" >
+                                    <div class="card-header">
+                                        <h3 class="text-center font-weight-light my-4" style="color:white">Login</h3>
+                                    </div>
+                                    <div class="card-body">
+                                            <form action="@Url.Action("Index", "Acceso")" method="post" onsubmit="return validateForm()">
+
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" name="correo" id="correo" type="email" placeholder="name@example.com" autocomplete="username" />
+                                                    <label for="correo">Correo Electrónico</label>
+                                                </div>
+
+
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" name="clave" id="clave" type="password" placeholder="Password" autocomplete="current-password" />
+                                                    <label for="clave">Contraseña</label>
+                                                </div>
+
+                                                         @{
+                                                            if (ViewBag.Error != null)
+                                                            {
+                                                                <div class="form-floating mb-3">
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        @ViewBag.Error
+                                                                    </div>
+                                                                </div>
+                                                                }
+                                                            }
+
+
+
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                    <label class="form-check-label" for="inputRememberPassword" style="color:gray">Recordar Contraseña</label>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                    <a class="small" href="password.html">Has Olvidado tu Contraseña ?</a>
+                                                    <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+                                                </div>
+                                            </form>
+                                    </div>
+
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="register.html">¿Necesito una cuenta? ¡Inscribirse!</a></div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">SISTEMAS &copy; Carrito de Compras 2024</div>
+                        <div>
+                            <a href="#">Política de Privacidad</a>
+                            &middot;
+                            <a href="#">Términos &amp; Condiciones</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    
+    </div>
+
+    <!-- Mensaje de Cambio de Clave Exitoso -->
+    @if (ViewBag.MensajeCambioClave != null)
+    {
+        <div class="alert alert-success text-center">
+            @ViewBag.MensajeCambioClave
+        </div>
+    }
+
+
+
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script>
+    
+        function validateForm() {
+            var correo = document.getElementById('correo').value.trim();
+            var clave = document.getElementById('clave').value.trim();
+
+
+            if (correo === '' && clave === '') {
+                alert('Todos Los Campos Estan Vacios, Completar.');
+                return false; // Evita que el formulario se envíe si ambos campos están vacíos
+            }
+
+            if (correo === '') {
+                alert('Por favor, completa el campo Correo.');
+                return false; // Evita que el formulario se envíe si los campos están vacíos
+            }
+
+            if (clave === '') {
+                alert('Por favor, Ingresar la contraseña');
+                return false; // Evita que el formulario se envíe si los campos están vacíos
+            }
+
+    
+
+            // Si todos los campos están completos, el formulario se enviará
+            return true;
+        }
+
+
+    </script>
+
+</body>
